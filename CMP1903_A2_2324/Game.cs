@@ -1,7 +1,8 @@
 ﻿namespace CMP1903_A2_2324
 {
-    public class Game
+    public abstract class Game
     {
-        
+        public abstract (int, int) PvP();
+        public abstract (int, int, int) PvE();
     }
 }

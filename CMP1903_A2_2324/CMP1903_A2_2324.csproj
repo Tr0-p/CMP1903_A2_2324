@@ -45,9 +45,13 @@
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="SevensOut.cs" />
+        <Compile Include="SevensOutOld.cs" />
         <Compile Include="Statistics.cs" />
         <Compile Include="Testing.cs" />
         <Compile Include="ThreeOrMore.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="gameRules.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
