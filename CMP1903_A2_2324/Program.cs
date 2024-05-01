@@ -8,7 +8,7 @@
             //sevensGame.playGame(false);
 
             ThreeOrMore threeOrMore = new ThreeOrMore();
-            threeOrMore.playGame(false);
+            threeOrMore.playGame(true);
         }
     }
     
