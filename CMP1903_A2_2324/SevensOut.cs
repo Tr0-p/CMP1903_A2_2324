@@ -5,19 +5,19 @@ namespace CMP1903_A2_2324
 {
     public class SevensOut : Game
     {
-        private Die _dieOne = new Die();
-        private Die _dieTwo = new Die();
+        private readonly Die _dieOne = new Die();
+        private readonly Die _dieTwo = new Die();
 
-        public override (int, int, int) PvE()
+        public override (int, int, int) playGame(bool twoPlayer)
         {
-            int computerTotal = 0;
-            int playerTotal = 0;
+            int playerTwoTotal = 0;
+            int playerOneTotal = 0;
             int lastTotal = 0;
-            bool playerOrComputer = true;
+            bool player = true;
 
             while (true)
             {
-                if (playerOrComputer)
+                if (player)
                 {
                     Console.WriteLine("\nPlayer 1 Turn");
                     Console.WriteLine("Press enter to roll...");
@@ -25,9 +25,18 @@ namespace CMP1903_A2_2324
                 }
                 else
                 {
-                    Console.WriteLine("\nComputers Turn");
-                    Console.WriteLine("Rolling....");
-                    Thread.Sleep(1000);
+                    if (!twoPlayer)
+                    {
+                        Console.WriteLine("\nPlayer 2 (Computer) Turn");
+                        Console.WriteLine("Rolling....");
+                        Thread.Sleep(1000);
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nPlayer 2 Turn");
+                        Console.WriteLine("Press enter to roll...");
+                        Console.ReadKey();
+                    }
                 }
 
                 int rollOne = _dieOne.Roll();
@@ -50,31 +59,26 @@ namespace CMP1903_A2_2324
                 {
                     Console.WriteLine("Seven Detected!");
 
-                    if (!playerOrComputer)
+                    if (!player)
                     {
                         break;
                     }
 
-                    playerOrComputer = false;
+                    player = false;
                     continue;
                 }
 
-                playerTotal += ((playerOrComputer) ? lastTotal : 0);
-                computerTotal += ((playerOrComputer) ? 0: lastTotal);
+                playerOneTotal += ((player) ? lastTotal : 0);
+                playerTwoTotal += ((player) ? 0: lastTotal);
                 
-                Console.WriteLine($"Combined Total: {((playerOrComputer) ? playerTotal : computerTotal)}");
+                Console.WriteLine($"Combined Total: {((player) ? playerOneTotal : playerTwoTotal)}");
             }
             
-            Console.WriteLine(((playerTotal < computerTotal) ? "\nPlayer Wins" : "\nComputer Wins"));
-            Console.WriteLine($"Player Total: {playerTotal}");
-            Console.WriteLine($"Computer Total: {computerTotal}");
+            Console.WriteLine(((playerOneTotal > playerTwoTotal) ? "\nPlayer 1 Wins" : "\nPlayer 2 Wins"));
+            Console.WriteLine($"Player 1 Total: {playerOneTotal}");
+            Console.WriteLine($"Player 2 Total: {playerTwoTotal}");
             
-            return (playerTotal, computerTotal, lastTotal);
-        }
-
-        public override (int, int) PvP()
-        {
-            return (0, 0);
+            return (playerOneTotal, playerTwoTotal, lastTotal);
         }
     }
 }

@@ -4,8 +4,11 @@
     {
         public static void Main(string[] args)
         {
-            SevensOut sevensGame = new SevensOut();
-            sevensGame.PvE();
+            //SevensOut sevensGame = new SevensOut();
+            //sevensGame.playGame(false);
+
+            ThreeOrMore threeOrMore = new ThreeOrMore();
+            threeOrMore.playGame(false);
         }
     }
     

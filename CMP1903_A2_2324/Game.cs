@@ -2,7 +2,6 @@
 {
     public abstract class Game
     {
-        public abstract (int, int) PvP();
-        public abstract (int, int, int) PvE();
+        public abstract (int, int, int) playGame(bool twoPlayer);
     }
 }
