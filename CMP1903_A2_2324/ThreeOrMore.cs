@@ -92,7 +92,7 @@ namespace CMP1903_A2_2324
             }
         }
         
-        public override (int, int, int) playGame(bool twoPlayer)
+        public override (int playerOneScore, int playerTwoScore, int lastScore) playGame(bool twoPlayer)
         {
             int playerOneScore = 0;
             int playerOneRounds = 0;

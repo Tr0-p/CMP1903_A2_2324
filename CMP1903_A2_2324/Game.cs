@@ -6,6 +6,7 @@ namespace CMP1903_A2_2324
     {
         protected InputOutputManager InputManager = new InputOutputManager();
         protected Random RandomSeed = new Random();
-        public abstract (int, int, int) playGame(bool twoPlayer);
+        
+        public abstract (int playerOneScore, int playerTwoScore, int lastScore) playGame(bool twoPlayer);
     }
 }

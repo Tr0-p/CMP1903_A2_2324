@@ -8,7 +8,7 @@ namespace CMP1903_A2_2324
         private readonly Die _dieOne = new Die();
         private readonly Die _dieTwo = new Die();
 
-        public override (int, int, int) playGame(bool twoPlayer)
+        public override (int playerOneScore, int playerTwoScore, int lastScore) playGame(bool twoPlayer)
         {
             int playerTwoTotal = 0;
             int playerOneTotal = 0;

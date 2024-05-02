@@ -72,22 +72,45 @@ namespace CMP1903_A2_2324
             return (_translationList[statistic],currentStatistics[statistic]);
         }
 
-        public bool UpdateStatistic(StatisticCodes statistic, int score)
+        private bool UpdateStatistic(StatisticCodes statistic, int score,
+            Dictionary<StatisticCodes, int> currentStatistics)
         {
-            Dictionary<StatisticCodes, int> currentStatistics = ReadAndParseStatisticsFile();
-
             if (currentStatistics.ContainsKey(statistic))
             {
                 currentStatistics[statistic] = score;
                 WriteToStatisticsFile(currentStatistics);
                 return true;
             }
-            else
+
+            _io.WriteColourTextLine("\nStatistic not currently present in the save file!", ConsoleColor.Red);
+            return false;
+        }
+        
+        public bool UpdateStatistic(StatisticCodes statistic, int score)
+        {
+            Dictionary<StatisticCodes, int> currentStatistics = ReadAndParseStatisticsFile();
+
+            return UpdateStatistic(statistic, score, currentStatistics);
+        }
+        
+        public bool UpdateStatistic(StatisticCodes statistic, int score, bool addToCurrentScore)
+        {
+            Dictionary<StatisticCodes, int> currentStatistics = ReadAndParseStatisticsFile();
+
+            if (addToCurrentScore)
             {
-                _io.WriteColourTextLine("\nStatistic not currently present in the save file!", ConsoleColor.Red);
-                return false;
+                if (currentStatistics.ContainsKey(statistic))
+                {
+                    currentStatistics[statistic] += score;
+                }
+                else
+                {
+                    _io.WriteColourTextLine("\nStatistic not currently present in the save file!", ConsoleColor.Red);
+                    return false;
+                }
             }
-            
+
+            return UpdateStatistic(statistic, score, currentStatistics);
         }
     }
 }
