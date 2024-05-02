@@ -1,4 +1,6 @@
-﻿namespace CMP1903_A2_2324
+﻿using System;
+
+namespace CMP1903_A2_2324
 {
     internal class Program
     {
@@ -14,6 +16,30 @@
             }
 
             return twoPlayerOption.Item2 != 0;
+        }
+
+        public static (bool newHighScore, int player) ProcessStats(int playerOneScore, int playerTwoScore, Statistics.StatisticCodes highScoreCode,
+            Statistics.StatisticCodes countCode, Statistics statsManager, bool twoPlayer)
+        {
+            (string statisticName, int highestScore) = statsManager.GetStatistic(highScoreCode);
+            
+            statsManager.UpdateStatistic(countCode, 1, true);
+            
+            if (playerOneScore > highestScore)
+            {
+                statsManager.UpdateStatistic(highScoreCode, playerOneScore);
+
+                return (true, 1);
+            }
+
+            if (twoPlayer && playerTwoScore > highestScore)
+            {
+                statsManager.UpdateStatistic(highScoreCode, playerTwoScore);
+
+                return (true, 2);
+            }
+            
+            return (false, 0);
         }
         
         public static void Main(string[] args)
@@ -42,6 +68,12 @@
                 }
 
                 bool twoPlayer = false;
+                int playerOneScore;
+                int playerTwoScore;
+                int lastScore = 0;
+
+                bool newHighScore;
+                int playerHighScore;
 
                 if (optionChosen.Item2 == 0 || optionChosen.Item2 == 1)
                 {
@@ -51,33 +83,32 @@
                 switch (optionChosen.Item2)
                 {
                     case 0:
-                        (int playerOneScore, int playerTwoScore, int lastScore) = threeOrMore.playGame(twoPlayer);
-
-                        (string statisticName, int highestScore) =
-                            statsManager.GetStatistic(Statistics.StatisticCodes.ThreeOrMoreHighScore);
-
-                        if (playerOneScore > highestScore)
+                        (playerOneScore, playerTwoScore, lastScore) = threeOrMore.playGame(twoPlayer);
+                        (newHighScore, playerHighScore) = ProcessStats(playerOneScore, playerTwoScore, Statistics.StatisticCodes.ThreeOrMoreHighScore, Statistics.StatisticCodes.ThreeOrMorePlayCount, statsManager, twoPlayer);
+                        
+                        if (newHighScore)
                         {
-                            statsManager.UpdateStatistic(Statistics.StatisticCodes.ThreeOrMoreHighScore,
-                                playerOneScore);
+                            io.WriteColourTextLine($"\nPlayer {playerHighScore} has reached a new high score!", ConsoleColor.Yellow);
                         }
-
-                        if (!twoPlayer && playerTwoScore > highestScore)
-                        {
-                            statsManager.UpdateStatistic(Statistics.StatisticCodes.ThreeOrMoreHighScore,
-                                playerTwoScore);
-                        }
-
-                        statsManager.UpdateStatistic(Statistics.StatisticCodes.ThreeOrMorePlayCount, 1, true);
                         
                         break;
                     case 1:
-                        
+                        (playerOneScore, playerTwoScore, lastScore) = sevensOut.playGame(twoPlayer);
+                        (newHighScore, playerHighScore) = ProcessStats(playerOneScore, playerTwoScore, Statistics.StatisticCodes.SevensOutHighScore, Statistics.StatisticCodes.SevensOutPlayCount, statsManager, twoPlayer);
+
+                        if (newHighScore)
+                        {
+                            io.WriteColourTextLine($"\nPlayer {playerHighScore} has reached a new high score!", ConsoleColor.Yellow);
+                        }
                         
                         break;
                     case 2:
+                        statsManager.OutputStatistics();
+                        
                         break;
                     case 3:
+                        Testing newTester = new Testing();
+                        newTester.Test();
                         break;
                     case 4:
                         System.Environment.Exit(0);

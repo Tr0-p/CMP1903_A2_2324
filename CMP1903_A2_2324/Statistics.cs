@@ -112,5 +112,17 @@ namespace CMP1903_A2_2324
 
             return UpdateStatistic(statistic, score, currentStatistics);
         }
+
+        public void OutputStatistics()
+        {
+            Dictionary<StatisticCodes, int> currentStatistics = ReadAndParseStatisticsFile();
+            
+            Console.WriteLine("");
+            
+            foreach (KeyValuePair<StatisticCodes, int> entry in currentStatistics)
+            {
+                Console.WriteLine($"{_translationList[entry.Key]}: {entry.Value}");
+            }
+        }
     }
 }

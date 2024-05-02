@@ -1,4 +1,4 @@
-﻿Sevens Out High Score:0
-Three Or More High Score:0
-Sevens Out Play Count:0
+Sevens Out High Score:19
+Three Or More High Score:12
+Sevens Out Play Count:1
 Three Or More Play Count:0
