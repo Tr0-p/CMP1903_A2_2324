@@ -4,11 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            //SevensOut sevensGame = new SevensOut();
-            //sevensGame.playGame(false);
-
-            ThreeOrMore threeOrMore = new ThreeOrMore();
-            threeOrMore.playGame(true);
+            
         }
     }
     
