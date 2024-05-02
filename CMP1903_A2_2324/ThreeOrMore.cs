@@ -13,6 +13,9 @@ namespace CMP1903_A2_2324
         private Die _dieFour = new Die();
         private Die _dieFive = new Die();
 
+        public int playerOneScore;
+        public int playerTwoScore;
+
         private List<int> RollFiveDie()
         {
             List<int> returnList = new List<int>();
